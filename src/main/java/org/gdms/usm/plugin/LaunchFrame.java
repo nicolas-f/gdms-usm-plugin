@@ -8,18 +8,13 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.gdms.data.DataSourceCreationException;
-import org.gdms.data.NoSuchTableException;
-import org.gdms.data.NonEditableDataSourceException;
-import org.gdms.data.indexes.IndexException;
+import org.gdms.data.DataSourceFactory;
 import org.gdms.driver.Driver;
 import org.gdms.driver.DriverException;
 import org.gdms.driver.FileDriver;
@@ -136,16 +131,18 @@ public class LaunchFrame extends JFrame implements ActionListener {
             }
         }
         else if(e.getActionCommand().equals("launch")) {
+            DataManager dma = Services.getService(DataManager.class);
+            DataSourceFactory dsf = dma.getDataSourceFactory();
             BufferBuildTypeCalculator bbtc = new BufferBuildTypeCalculator();
             GaussParcelSelector gps = new GaussParcelSelector();
             Step s;
             if(modelChoice.equals("schelling")) {
                 SchellingDecisionMaker dm = new SchellingDecisionMaker();
-                s = new Step(2000, dataPath.getText(), configPath, outputPath.getText(), bbtc, dm, gps);
+                s = new Step(2000, dataPath.getText(), configPath, outputPath.getText(), bbtc, dm, gps, dsf);
             }
             else {
                 StatisticalDecisionMaker dm = new StatisticalDecisionMaker();
-                s = new Step(2000, dataPath.getText(), configPath, outputPath.getText(), bbtc, dm, gps);
+                s = new Step(2000, dataPath.getText(), configPath, outputPath.getText(), bbtc, dm, gps, dsf);
             }
             new ProgressFrame(s);
             launchButton.setEnabled(false);

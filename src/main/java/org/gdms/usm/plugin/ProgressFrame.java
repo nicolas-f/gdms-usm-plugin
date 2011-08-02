@@ -35,6 +35,7 @@ import org.orbisgis.core.Services;
  */
 public class ProgressFrame extends JFrame implements StepListener {
     
+    private Timer timer;
     private int totalSeconds;
     private List<Integer> stepSeconds;
     private JLabel currentTurn;
@@ -95,7 +96,7 @@ public class ProgressFrame extends JFrame implements StepListener {
                 timeLabel.setText(hourss+":"+minutess+":"+secondss);
             }
         };
-        Timer timer = new Timer(1000, timerListener);
+        timer = new Timer(1000, timerListener);
         timer.start();
         
         //Turn progress panel
@@ -195,7 +196,7 @@ public class ProgressFrame extends JFrame implements StepListener {
             deathTollChart.add(cT-1, dead);
             newbornCountChart.add(cT-1, newb);
             moversCountChart.add(cT-1, mov);
-        }    
+        }
         stepSeconds.add(totalSeconds);
     }
 
@@ -217,5 +218,11 @@ public class ProgressFrame extends JFrame implements StepListener {
         JFreeChart chart = ChartFactory.createXYLineChart(null, "Step", valueName, dataset, PlotOrientation.VERTICAL, true, true, false);
         chart.removeLegend();
         return new ChartPanel(chart);
+    }
+    
+    @Override
+    public void simulationDone() {
+        timer.stop();
+        new ResultsFrame();
     }
 }
