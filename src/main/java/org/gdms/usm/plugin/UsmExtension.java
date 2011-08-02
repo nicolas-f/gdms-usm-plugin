@@ -11,11 +11,12 @@ import org.orbisgis.core.ui.pluginSystem.PlugInContext;
  *
  * @author Thomas Salliou
  */
-public class UsmExtension extends Extension{
+public class UsmExtension extends Extension {
 
 	@Override
 	public void configure(PlugInContext context) throws Exception {
-		new UsmPlugIn().initialize(context);	
+		new LaunchPlugIn().initialize(context);	
+                new ResultsPlugIn().initialize(context);
 	}
 
 }

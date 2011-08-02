@@ -12,27 +12,25 @@ import org.orbisgis.core.ui.pluginSystem.workbench.Names;
  *
  * @author Thomas Salliou
  */
-public class UsmPlugIn extends AbstractPlugIn {
+public class ResultsPlugIn extends AbstractPlugIn {
 
     @Override
     public void initialize(PlugInContext context) throws Exception {
-
         context.getFeatureInstaller().addMainMenuItem(this,
                 new String[]{Names.FILE, "GDMS-USM"},
-                "Launch USM", false,
+                "Results", false,
                 null, null, null, context);
     }
 
     @Override
     public boolean execute(PlugInContext context) throws Exception {
-        UsmLauncher launcher = new UsmLauncher();
-        launcher.launchInitialGUI();
+        new ResultsFrame();
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        /* Place your condition here */
         return true;
     }
+    
 }
