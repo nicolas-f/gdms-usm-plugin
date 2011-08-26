@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -46,13 +48,13 @@ public class LaunchFrame extends JFrame implements ActionListener {
     private JButton modifyButton;
     private JButton cancelButton;
     
-    public LaunchFrame(File configFile, String choice) throws DataSourceCreationException, DriverException {
+    public LaunchFrame(String configPath, String choice) throws DataSourceCreationException, DriverException {
         super("Urban Sprawl Model - Launch");
         modelChoice = choice;
-        configPath = configFile.getAbsolutePath();
+        this.configPath = configPath;
         
         //Check panel
-        ReadParameterPanel rpp = new ReadParameterPanel(configFile, choice);
+        ReadParameterPanel rpp = new ReadParameterPanel(configPath, choice);
         add(rpp, BorderLayout.NORTH);
         
         //Path selecting panel
@@ -152,7 +154,14 @@ public class LaunchFrame extends JFrame implements ActionListener {
             bm.backgroundOperation(new ExecuteSimulation(s));
         }
         else if(e.getActionCommand().equals("modify")) {
-            System.out.println("Config modification, not implemented yet.");
+            try {
+                new ModifyFrame(configPath, modelChoice);
+            } catch (DataSourceCreationException ex) {
+                Logger.getLogger(LaunchFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DriverException ex) {
+                Logger.getLogger(LaunchFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dispose();
         }
         else {
             new ConfigFrame();

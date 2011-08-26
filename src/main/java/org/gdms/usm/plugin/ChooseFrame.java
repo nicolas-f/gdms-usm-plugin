@@ -101,9 +101,9 @@ public class ChooseFrame extends JFrame implements ActionListener {
             } else {
                 try {
                     if (selections.get("statistical").isSelected()) {
-                        new LaunchFrame(fc.getSelectedFile(), "statistical");
+                        new LaunchFrame(fc.getSelectedFile().getAbsolutePath(), "statistical");
                     } else if (selections.get("schelling").isSelected()) {
-                        new LaunchFrame(fc.getSelectedFile(), "schelling");
+                        new LaunchFrame(fc.getSelectedFile().getAbsolutePath(), "schelling");
                     }
                     dispose();
                 } catch (DriverException ex) {

@@ -27,7 +27,7 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
     private Map<String, JSpinner> spinners;
     private Map<String, JRadioButton> selections;
     
-    public SpinnerParameterPanel() {
+    public SpinnerParameterPanel(Map<String, Double> parameters) {
         super (new SpringLayout());
         spinners = new HashMap<String, JSpinner>();
         selections = new HashMap<String, JRadioButton>();
@@ -65,21 +65,21 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
         };
         int spinnerNumber = labels.length;
         
-        SpinnerModel yearModel = new SpinnerNumberModel(2000,1900,2500,1);
+        SpinnerModel yearModel = new SpinnerNumberModel((double) parameters.get("year"),1900,2500,1);
         JSpinner spinner = addLabeledSpinner(this, labels[0], tooltips[0], yearModel);
         spinners.put("year", spinner);
         
-        SpinnerModel turnsModel = new SpinnerNumberModel(1,1,1000,1);
+        SpinnerModel turnsModel = new SpinnerNumberModel((double) parameters.get("numberOfTurns"),1,1000,1);
         spinner = addLabeledSpinner(this, labels[1], tooltips[1], turnsModel);
         spinners.put("numberOfTurns", spinner);
         
-        SpinnerModel bufferModel = new SpinnerNumberModel(10.00,0.01,100.00,0.01);
+        SpinnerModel bufferModel = new SpinnerNumberModel((double) parameters.get("bufferSize"),0.01,100.00,0.01);
         spinner = addLabeledSpinner(this, labels[2], tooltips[2], bufferModel);
         spinners.put("bufferSize", spinner);
         
-        SpinnerModel weightingModel1 = new SpinnerNumberModel(1.00,0.00,10.00,0.01);
-        SpinnerModel weightingModel2 = new SpinnerNumberModel(1.00,0.00,10.00,0.01);
-        SpinnerModel weightingModel3 = new SpinnerNumberModel(1.00,0.00,10.00,0.01);
+        SpinnerModel weightingModel1 = new SpinnerNumberModel((double) parameters.get("amenitiesWeighting"),0.00,10.00,0.01);
+        SpinnerModel weightingModel2 = new SpinnerNumberModel((double) parameters.get("constructibilityWeighting"),0.00,10.00,0.01);
+        SpinnerModel weightingModel3 = new SpinnerNumberModel((double) parameters.get("idealhousingWeighting"),0.00,10.00,0.01);
         spinner = addLabeledSpinner(this, labels[3], tooltips[3], weightingModel1);
         spinners.put("amenitiesWeighting", spinner);
         spinner = addLabeledSpinner(this, labels[4], tooltips[4], weightingModel2);
@@ -87,7 +87,7 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
         spinner = addLabeledSpinner(this, labels[5], tooltips[5], weightingModel3);
         spinners.put("idealhousingWeighting", spinner);
                 
-        SpinnerModel gaussModel = new SpinnerNumberModel(0.10,0.01,1.00,0.01);
+        SpinnerModel gaussModel = new SpinnerNumberModel((double) parameters.get("gaussDeviation"),0.01,1.00,0.01);
         spinner = addLabeledSpinner(this, labels[6], tooltips[6], gaussModel);
         spinners.put("gaussDeviation", spinner);
         
@@ -109,25 +109,25 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
         choices.add(schellingButton);
         selections.put("schelling", schellingButton);
         
-        SpinnerModel memoryModel = new SpinnerNumberModel(5,1,50,1);
+        SpinnerModel memoryModel = new SpinnerNumberModel((double) parameters.get("householdMemory"),1,50,1);
         spinner = addLabeledSpinner(this, labels[11], tooltips[11], memoryModel);
         spinners.put("householdMemory", spinner);
         
-        SpinnerModel movingModel = new SpinnerNumberModel(20.00,0.01,200.0,0.01);
+        SpinnerModel movingModel = new SpinnerNumberModel((double) parameters.get("movingThreshold"),0.01,200.0,0.01);
         spinner = addLabeledSpinner(this, labels[12], tooltips[12], movingModel);
         spinners.put("movingThreshold", spinner);
         
-        SpinnerModel segThresholdModel = new SpinnerNumberModel(0.80,0.01,1.00,0.01);
+        SpinnerModel segThresholdModel = new SpinnerNumberModel((double) parameters.get("segregationThreshold"),0.01,1.00,0.01);
         spinner = addLabeledSpinner(this, labels[9], tooltips[9], segThresholdModel);
         spinner.setEnabled(false);
         spinners.put("segregationThreshold", spinner);
         
-        SpinnerModel segToleranceModel = new SpinnerNumberModel(0.30,0.01,1.00,0.01);
+        SpinnerModel segToleranceModel = new SpinnerNumberModel((double) parameters.get("segregationTolerance"),0.01,1.00,0.01);
         spinner = addLabeledSpinner(this, labels[10], tooltips[10], segToleranceModel);
         spinner.setEnabled(false);
         spinners.put("segregationTolerance", spinner);
         
-        SpinnerModel immigrantModel = new SpinnerNumberModel(5000,0,200000,1);
+        SpinnerModel immigrantModel = new SpinnerNumberModel((double) parameters.get("immigrantNumber"),0,200000,1);
         spinner = addLabeledSpinner(this, labels[13], tooltips[13], immigrantModel);
         spinners.put("immigrantNumber", spinner);
        

@@ -21,7 +21,7 @@ import org.gdms.driver.DriverException;
  */
 public class ReadParameterPanel extends JPanel {
     
-    public ReadParameterPanel(File configFile, String choice) throws DataSourceCreationException, DriverException {
+    public ReadParameterPanel(String configPath, String choice) throws DataSourceCreationException, DriverException {
         super(new SpringLayout());
         
         String[] labels = {"Year :",
@@ -56,6 +56,7 @@ public class ReadParameterPanel extends JPanel {
         int lineNumber = labels.length;
         
         DataSourceFactory dsf = new DataSourceFactory();
+        File configFile = new File(configPath);
         DataSource configSource = dsf.getDataSource(configFile);
         configSource.open();
         

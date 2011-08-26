@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -41,7 +42,20 @@ public class CreateFrame extends JFrame implements ActionListener {
     public CreateFrame() {
 
         super("Urban Sprawl Model - Create");
-        spp = new SpinnerParameterPanel();
+        Map<String, Double> defaultParameters = new HashMap<String, Double>();
+        defaultParameters.put("year", 2000.0);
+        defaultParameters.put("numberOfTurns", 1.0);
+        defaultParameters.put("bufferSize", 10.0);
+        defaultParameters.put("amenitiesWeighting", 1.0);
+        defaultParameters.put("constructibilityWeighting", 1.0);
+        defaultParameters.put("idealhousingWeighting", 1.0);
+        defaultParameters.put("gaussDeviation", 0.10);
+        defaultParameters.put("householdMemory", 5.0);
+        defaultParameters.put("movingThreshold", 20.0);
+        defaultParameters.put("segregationThreshold", 0.8);
+        defaultParameters.put("segregationTolerance", 0.3);
+        defaultParameters.put("immigrantNumber", 5000.0);
+        spp = new SpinnerParameterPanel(defaultParameters);
 
         //Spinner panel
         add(spp, BorderLayout.NORTH);
@@ -121,6 +135,14 @@ public class CreateFrame extends JFrame implements ActionListener {
 
                     //Table filling
                     Map<String, JSpinner> sp = spp.getSpinners();
+                    Double hM = (Double) sp.get("householdMemory").getValue();
+                    Integer hMi = hM.intValue();
+                    Double iN = (Double) sp.get("immigrantNumber").getValue();
+                    Integer iNi = iN.intValue();
+                    Double nOT = (Double) sp.get("numberOfTurns").getValue();
+                    Integer nOTi = nOT.intValue();
+                    Double y = (Double) sp.get("year").getValue();
+                    Integer yi = y.intValue();
                     globalsGW.addValues(new Value[]{ValueFactory.createValue((Double) sp.get("bufferSize").getValue()),
                                 ValueFactory.createValue((Double) sp.get("amenitiesWeighting").getValue()),
                                 ValueFactory.createValue((Double) sp.get("constructibilityWeighting").getValue()),
@@ -128,11 +150,11 @@ public class CreateFrame extends JFrame implements ActionListener {
                                 ValueFactory.createValue((Double) sp.get("gaussDeviation").getValue()),
                                 ValueFactory.createValue((Double) sp.get("segregationThreshold").getValue()),
                                 ValueFactory.createValue((Double) sp.get("segregationTolerance").getValue()),
-                                ValueFactory.createValue((Integer) sp.get("householdMemory").getValue()),
+                                ValueFactory.createValue(hMi),
                                 ValueFactory.createValue((Double) sp.get("movingThreshold").getValue()),
-                                ValueFactory.createValue((Integer) sp.get("immigrantNumber").getValue()),
-                                ValueFactory.createValue((Integer) sp.get("numberOfTurns").getValue()),
-                                ValueFactory.createValue((Integer) sp.get("year").getValue())
+                                ValueFactory.createValue(iNi),
+                                ValueFactory.createValue(nOTi),
+                                ValueFactory.createValue(yi)
                             });
 
                     //Table closing
@@ -143,9 +165,9 @@ public class CreateFrame extends JFrame implements ActionListener {
 
                     try {
                         if (spp.getSelections().get("statistical").isSelected()) {
-                            new LaunchFrame(fc.getSelectedFile(), "statistical");
+                            new LaunchFrame(fc.getSelectedFile().getAbsolutePath(), "statistical");
                         } else if (spp.getSelections().get("schelling").isSelected()) {
-                            new LaunchFrame(fc.getSelectedFile(), "schelling");
+                            new LaunchFrame(fc.getSelectedFile().getAbsolutePath(), "schelling");
                         }
                     } catch (DriverException ex) {
                         Services.getErrorManager().error("Driver Exception", ex);
