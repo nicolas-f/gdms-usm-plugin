@@ -21,7 +21,6 @@ import javax.swing.JTextField;
 import org.gdms.data.DataSourceCreationException;
 import org.gdms.data.schema.DefaultMetadata;
 import org.gdms.data.schema.Metadata;
-import org.gdms.data.types.Type;
 import org.gdms.data.types.TypeFactory;
 import org.gdms.data.values.Value;
 import org.gdms.data.values.ValueFactory;
@@ -127,9 +126,9 @@ public class CreateFrame extends JFrame implements ActionListener {
                         "immigrantNumber",
                         "numberOfTurns",
                         "year"};
-                    Type integ = TypeFactory.createType(64);
-                    Type doubl = TypeFactory.createType(16);
-                    Type[] fieldTypes1 = {doubl, doubl, doubl, doubl, doubl, doubl, doubl, integ, doubl, integ, integ, integ};
+                    org.gdms.data.types.Type integ = TypeFactory.createType(64);
+                    org.gdms.data.types.Type doubl = TypeFactory.createType(16);
+                    org.gdms.data.types.Type[] fieldTypes1 = {doubl, doubl, doubl, doubl, doubl, doubl, doubl, integ, doubl, integ, integ, integ};
                     Metadata m1 = new DefaultMetadata(fieldTypes1, fieldNames1);
                     globalsGW.writeMetadata(0, m1);
 
