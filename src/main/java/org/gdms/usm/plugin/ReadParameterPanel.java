@@ -37,6 +37,10 @@ public class ReadParameterPanel extends JPanel {
             "Household Memory :",
             "Moving Threshold :",
             "Immigrant Number :",
+            "Threshold 1 :",
+            "Threshold 2 :",
+            "Threshold 3 :",
+            "Threshold 4 :"
         };
         
         String[] tooltips = {"The starting year of the simulation.",
@@ -52,6 +56,10 @@ public class ReadParameterPanel extends JPanel {
             "The size of the dissatisfaction memory of a household.",
             "If the total dissatisfaction exceeds this value, the household moves.",
             "The number of immigrants per turn.",
+            "The first threshold of bati type.",
+            "The second threshold of bati type.",
+            "The third threshold of bati type.",
+            "The forth threshold of bati type."
         };
         int lineNumber = labels.length;
         
@@ -77,6 +85,10 @@ public class ReadParameterPanel extends JPanel {
             addLabeledField(this, labels[11], tooltips[11], configSource.getFieldValue(0, configSource.getFieldIndexByName("movingThreshold")).toString());
         }
         addLabeledField(this, labels[12], tooltips[12], configSource.getFieldValue(0, configSource.getFieldIndexByName("immigrantNumber")).toString());
+        addLabeledField(this, labels[13], tooltips[13], configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_1")).toString());
+        addLabeledField(this, labels[14], tooltips[14], configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_2")).toString());
+        addLabeledField(this, labels[15], tooltips[15], configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_3")).toString());
+        addLabeledField(this, labels[16], tooltips[16], configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_4")).toString());
         
         configSource.close();
         

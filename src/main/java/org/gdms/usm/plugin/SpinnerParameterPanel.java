@@ -45,7 +45,11 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
             "Segregation Tolerance :",
             "Household Memory :",
             "Moving Threshold :",
-            "Immigrant Number :"
+            "Immigrant Number :",
+            "Threshold 1 :",
+            "Threshold 2 :",
+            "Threshold 3 :",
+            "Threshold 4 :"
         };
         
         String[] tooltips = {"The starting year of the simulation.",
@@ -61,7 +65,11 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
             "The tolerance for determining if a neighbour is too much rich or too much poor.",
             "The size of the dissatisfaction memory of a household.",
             "If the total dissatisfaction exceeds this value, the household moves.",
-            "The number of immigrants per turn."
+            "The number of immigrants per turn.",
+            "The first threshold of bati type.",
+            "The second threshold of bati type.",
+            "The third threshold of bati type.",
+            "The forth threshold of bati type."
         };
         int spinnerNumber = labels.length;
         
@@ -130,7 +138,23 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
         SpinnerModel immigrantModel = new SpinnerNumberModel((double) parameters.get("immigrantNumber"),0,200000,1);
         spinner = addLabeledSpinner(this, labels[13], tooltips[13], immigrantModel);
         spinners.put("immigrantNumber", spinner);
-       
+        
+        SpinnerModel thresholdModel_1 = new SpinnerNumberModel((double) parameters.get("threshold_1"),0,1,0.00001);
+        spinner = addLabeledSpinner(this, labels[14], tooltips[14], thresholdModel_1);
+        spinners.put("threshold_1", spinner);
+        
+        SpinnerModel thresholdModel_2 = new SpinnerNumberModel((double) parameters.get("threshold_2"),0,1,0.00001);
+        spinner = addLabeledSpinner(this, labels[15], tooltips[15], thresholdModel_2);
+        spinners.put("threshold_2", spinner);
+        
+        SpinnerModel thresholdModel_3 = new SpinnerNumberModel((double) parameters.get("threshold_3"),0,1,0.00001);
+        spinner = addLabeledSpinner(this, labels[16], tooltips[16], thresholdModel_3);
+        spinners.put("threshold_3", spinner);
+        
+        SpinnerModel thresholdModel_4 = new SpinnerNumberModel((double) parameters.get("threshold_4"),0,1,0.00001);
+        spinner = addLabeledSpinner(this, labels[16], tooltips[16], thresholdModel_4);
+        spinners.put("threshold_4", spinner);
+        
         SpringUtilities.makeCompactGrid(this,spinnerNumber-1,2,10,10,6,10);
     }
     

@@ -37,7 +37,7 @@ public class CreateFrame extends JFrame implements ActionListener {
     private SpinnerParameterPanel spp;
     private JFileChooser fc;
     private JTextField path;
-
+    
     public CreateFrame() {
 
         super("Urban Sprawl Model - Create");
@@ -54,8 +54,12 @@ public class CreateFrame extends JFrame implements ActionListener {
         defaultParameters.put("segregationThreshold", 0.8);
         defaultParameters.put("segregationTolerance", 0.3);
         defaultParameters.put("immigrantNumber", 5000.0);
+        defaultParameters.put("threshold_1", 0.);
+        defaultParameters.put("threshold_2", 0.000155);
+        defaultParameters.put("threshold_3", 0.001000);
+        defaultParameters.put("threshold_4", 0.001466);
         spp = new SpinnerParameterPanel(defaultParameters);
-
+        
         //Spinner panel
         add(spp, BorderLayout.NORTH);
 
@@ -125,10 +129,14 @@ public class CreateFrame extends JFrame implements ActionListener {
                         "movingThreshold",
                         "immigrantNumber",
                         "numberOfTurns",
-                        "year"};
+                        "year",
+                        "threshold_1",
+                        "threshold_2",
+                        "threshold_3",
+                        "threshold_4"};
                     org.gdms.data.types.Type integ = TypeFactory.createType(64);
                     org.gdms.data.types.Type doubl = TypeFactory.createType(16);
-                    org.gdms.data.types.Type[] fieldTypes1 = {doubl, doubl, doubl, doubl, doubl, doubl, doubl, integ, doubl, integ, integ, integ};
+                    org.gdms.data.types.Type[] fieldTypes1 = {doubl, doubl, doubl, doubl, doubl, doubl, doubl, integ, doubl, integ, integ, integ, doubl, doubl, doubl, doubl};
                     Metadata m1 = new DefaultMetadata(fieldTypes1, fieldNames1);
                     globalsGW.writeMetadata(0, m1);
 
@@ -153,7 +161,11 @@ public class CreateFrame extends JFrame implements ActionListener {
                                 ValueFactory.createValue((Double) sp.get("movingThreshold").getValue()),
                                 ValueFactory.createValue(iNi),
                                 ValueFactory.createValue(nOTi),
-                                ValueFactory.createValue(yi)
+                                ValueFactory.createValue(yi),
+                                ValueFactory.createValue((Double) sp.get("threshold_1").getValue()),
+                                ValueFactory.createValue((Double) sp.get("threshold_2").getValue()),
+                                ValueFactory.createValue((Double) sp.get("threshold_3").getValue()),
+                                ValueFactory.createValue((Double) sp.get("threshold_4").getValue())
                             });
 
                     //Table closing
