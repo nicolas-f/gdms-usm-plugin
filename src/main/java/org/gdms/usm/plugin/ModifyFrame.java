@@ -62,6 +62,10 @@ public class ModifyFrame extends JFrame implements ActionListener {
         parameters.put("householdMemory", configSource.getFieldValue(0, configSource.getFieldIndexByName("householdMemory")).getAsDouble());
         parameters.put("movingThreshold", configSource.getFieldValue(0, configSource.getFieldIndexByName("movingThreshold")).getAsDouble());
         parameters.put("immigrantNumber", configSource.getFieldValue(0, configSource.getFieldIndexByName("immigrantNumber")).getAsDouble());
+        parameters.put("threshold_1", configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_1")).getAsDouble());
+        parameters.put("threshold_2", configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_2")).getAsDouble());
+        parameters.put("threshold_3", configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_3")).getAsDouble());
+        parameters.put("threshold_4", configSource.getFieldValue(0, configSource.getFieldIndexByName("threshold_4")).getAsDouble());
         configSource.close();
 
         spp = new SpinnerParameterPanel(parameters);
@@ -104,10 +108,15 @@ public class ModifyFrame extends JFrame implements ActionListener {
                     "movingThreshold",
                     "immigrantNumber",
                     "numberOfTurns",
-                    "year"};
+                    "year",
+                    "threshold_1",
+                    "threshold_2",
+                    "threshold_3",
+                    "threshold_4"};
+                
                 org.gdms.data.types.Type integ = TypeFactory.createType(64);
                 org.gdms.data.types.Type doubl = TypeFactory.createType(16);
-                org.gdms.data.types.Type[] fieldTypes1 = {doubl, doubl, doubl, doubl, doubl, doubl, doubl, integ, doubl, integ, integ, integ};
+                org.gdms.data.types.Type[] fieldTypes1 = {doubl, doubl, doubl, doubl, doubl, doubl, doubl, integ, doubl, integ, integ, integ, doubl, doubl, doubl, doubl};
                 Metadata m1 = new DefaultMetadata(fieldTypes1, fieldNames1);
                 globalsGW.writeMetadata(0, m1);
 
@@ -132,7 +141,11 @@ public class ModifyFrame extends JFrame implements ActionListener {
                             ValueFactory.createValue((Double) sp.get("movingThreshold").getValue()),
                             ValueFactory.createValue(iNi),
                             ValueFactory.createValue(nOTi),
-                            ValueFactory.createValue(yi)
+                            ValueFactory.createValue(yi),
+                            ValueFactory.createValue((Double) sp.get("threshold_1").getValue()),
+                            ValueFactory.createValue((Double) sp.get("threshold_2").getValue()),
+                            ValueFactory.createValue((Double) sp.get("threshold_3").getValue()),
+                            ValueFactory.createValue((Double) sp.get("threshold_4").getValue()),
                         });
 
                 //Table closing
