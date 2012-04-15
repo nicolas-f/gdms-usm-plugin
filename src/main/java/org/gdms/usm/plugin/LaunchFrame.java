@@ -10,11 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import org.gdms.data.DataSourceCreationException;
 import org.gdms.data.DataSourceFactory;
 import org.gdms.driver.Driver;
@@ -47,6 +43,7 @@ public class LaunchFrame extends JFrame implements ActionListener {
     private JButton launchButton;
     private JButton modifyButton;
     private JButton cancelButton;
+    private JCheckBox thresholdButton;
     
     public LaunchFrame(String configPath, String choice) throws DataSourceCreationException, DriverException {
         super("Urban Sprawl Model - Launch");
@@ -97,19 +94,27 @@ public class LaunchFrame extends JFrame implements ActionListener {
         add(browsePanel, BorderLayout.CENTER);
         
         //Button panel
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        //Add a modify thresholds panel in the button panel
+        thresholdButton = new JCheckBox();
+        JLabel thresholdText = new JLabel("Modify thresholds during simulation");
+        JPanel thresholdPanel = new JPanel(new BorderLayout());
+        thresholdPanel.add(thresholdText, BorderLayout.WEST);
+        thresholdPanel.add(thresholdButton, BorderLayout.EAST);
+        buttonPanel.add(thresholdPanel, BorderLayout.NORTH);
+        
         launchButton = new JButton("Launch");
         launchButton.addActionListener(this);
         launchButton.setActionCommand("launch");
-        buttonPanel.add(launchButton);
+        buttonPanel.add(launchButton, BorderLayout.WEST);
         modifyButton = new JButton("Modify");
         modifyButton.addActionListener(this);
         modifyButton.setActionCommand("modify");
-        buttonPanel.add(modifyButton);
+        buttonPanel.add(modifyButton, BorderLayout.CENTER);
         cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(this);
         cancelButton.setActionCommand("cancel");
-        buttonPanel.add(cancelButton);
+        buttonPanel.add(cancelButton, BorderLayout.EAST);
         add(buttonPanel, BorderLayout.SOUTH);
         
         pack();

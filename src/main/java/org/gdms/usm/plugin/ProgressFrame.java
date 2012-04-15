@@ -18,9 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import org.gdms.usm.Household;
-import org.gdms.usm.Step;
-import org.gdms.usm.StepListener;
+import org.gdms.usm.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -33,8 +31,8 @@ import org.orbisgis.core.Services;
  *
  * @author Thomas Salliou
  */
-public class ProgressFrame extends JFrame implements StepListener {
-    
+public class ProgressFrame extends JFrame implements StepListener, ManagerAdvisor{
+                                                                    
     private Timer timer;
     private int totalSeconds;
     private List<Integer> stepSeconds;
@@ -50,12 +48,15 @@ public class ProgressFrame extends JFrame implements StepListener {
     private XYSeries newbornCountChart;
     private XYSeries moversCountChart;
     private Step simulation;
+    private boolean thresholdsUpOnDate = false;
     
     public ProgressFrame(Step s) {
         super("Progress");
         simulation = s;
         s.registerStepListener(this);
         stepSeconds = new LinkedList<Integer>();
+        
+        s.getManager().setAdvisor(this);
         
         JPanel statusPanel = new JPanel(new BorderLayout());
         JPanel globalPanel = new JPanel(new SpringLayout());
@@ -224,5 +225,21 @@ public class ProgressFrame extends JFrame implements StepListener {
     public void simulationDone() {
         timer.stop();
         new ResultsFrame();
+    }
+
+    @Override
+    public void waitingUpdatedThresholds(Manager m) {
+        thresholdsUpOnDate = false;
+        new UpdateThresholdsFrame(m,this);
+    }
+
+    @Override
+    public boolean thresholdsUpOnDate() {
+        return thresholdsUpOnDate;
+    }
+    
+    public void setThresholdsUpOnDate(boolean b)
+    {
+        thresholdsUpOnDate = b;
     }
 }
