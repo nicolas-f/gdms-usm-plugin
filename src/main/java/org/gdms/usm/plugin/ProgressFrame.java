@@ -50,12 +50,13 @@ public class ProgressFrame extends JFrame implements StepListener, ManagerAdviso
     private Step simulation;
     private boolean thresholdsUpOnDate = false;
     
-    public ProgressFrame(Step s) {
+    public ProgressFrame(Step s, boolean modifyThresholds) {
         super("Progress");
         simulation = s;
         s.registerStepListener(this);
         stepSeconds = new LinkedList<Integer>();
         
+        s.getManager().setModifyThresholds(modifyThresholds);
         s.getManager().setAdvisor(this);
         
         JPanel statusPanel = new JPanel(new BorderLayout());

@@ -141,18 +141,23 @@ public class SpinnerParameterPanel extends JPanel implements ActionListener{
         
         SpinnerModel thresholdModel_1 = new SpinnerNumberModel((double) parameters.get("threshold_1"),0,1,0.00001);
         spinner = addLabeledSpinner(this, labels[14], tooltips[14], thresholdModel_1);
+        spinner.setEditor(new JSpinner.NumberEditor(spinner,"0.000000"));
+        new JSpinner.NumberEditor(spinner,"0.000000");
         spinners.put("threshold_1", spinner);
         
         SpinnerModel thresholdModel_2 = new SpinnerNumberModel((double) parameters.get("threshold_2"),0,1,0.00001);
         spinner = addLabeledSpinner(this, labels[15], tooltips[15], thresholdModel_2);
+        spinner.setEditor(new JSpinner.NumberEditor(spinner,"0.000000"));
         spinners.put("threshold_2", spinner);
         
         SpinnerModel thresholdModel_3 = new SpinnerNumberModel((double) parameters.get("threshold_3"),0,1,0.00001);
         spinner = addLabeledSpinner(this, labels[16], tooltips[16], thresholdModel_3);
+        spinner.setEditor(new JSpinner.NumberEditor(spinner,"0.000000"));
         spinners.put("threshold_3", spinner);
         
         SpinnerModel thresholdModel_4 = new SpinnerNumberModel((double) parameters.get("threshold_4"),0,1,0.00001);
         spinner = addLabeledSpinner(this, labels[16], tooltips[16], thresholdModel_4);
+        spinner.setEditor(new JSpinner.NumberEditor(spinner,"0.000000"));
         spinners.put("threshold_4", spinner);
         
         SpringUtilities.makeCompactGrid(this,spinnerNumber-1,2,10,10,6,10);

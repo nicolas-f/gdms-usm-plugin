@@ -151,12 +151,13 @@ public class LaunchFrame extends JFrame implements ActionListener {
                 StatisticalDecisionMaker dm = new StatisticalDecisionMaker();
                 s = new Step(2000, dataPath.getText(), configPath, outputPath.getText(), bbtc, dm, gps, dsf);
             }
-            new ProgressFrame(s);
+            new ProgressFrame(s, thresholdButton.isSelected());
             launchButton.setEnabled(false);
             modifyButton.setEnabled(false);
             cancelButton.setEnabled(false);
             BackgroundManager bm = Services.getService(BackgroundManager.class);
             bm.backgroundOperation(new ExecuteSimulation(s));
+            
         }
         else if(e.getActionCommand().equals("modify")) {
             try {

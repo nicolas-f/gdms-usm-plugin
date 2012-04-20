@@ -7,6 +7,7 @@ package org.gdms.usm.plugin;
 
 import java.util.List;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import org.gdms.usm.Manager;
 import org.gdms.usm.Parcel;
 
@@ -113,7 +114,7 @@ public class UpdateThresholdsPanel extends javax.swing.JPanel {
 
         jLabel2.setText("1 -> 2");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(0.0d)));
+        jSpinner1.setModel(new SpinnerNumberModel(0,0,1,0.00001));
         jSpinner1.setEditor(new JSpinner.NumberEditor(jSpinner1,"0.000000"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -153,7 +154,7 @@ public class UpdateThresholdsPanel extends javax.swing.JPanel {
 
         jLabel4.setText("2 -> 3");
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(0.0d)));
+        jSpinner2.setModel(new SpinnerNumberModel(0,0,1,0.00001));
         jSpinner2.setEditor(new JSpinner.NumberEditor(jSpinner2,"0.000000"));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -193,7 +194,7 @@ public class UpdateThresholdsPanel extends javax.swing.JPanel {
 
         jLabel6.setText("3 -> 4");
 
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(0.0d)));
+        jSpinner3.setModel(new SpinnerNumberModel(0,0,1,0.00001));
         jSpinner3.setEditor(new JSpinner.NumberEditor(jSpinner3,"0.000000"));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -233,7 +234,7 @@ public class UpdateThresholdsPanel extends javax.swing.JPanel {
 
         jLabel8.setText("4 -> 5");
 
-        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, null, Double.valueOf(0.0d)));
+        jSpinner4.setModel(new SpinnerNumberModel(0,0,1,0.00001));
         jSpinner4.setEditor(new JSpinner.NumberEditor(jSpinner4,"0.000000"));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
