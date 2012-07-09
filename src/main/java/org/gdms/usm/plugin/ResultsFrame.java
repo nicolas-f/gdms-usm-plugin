@@ -51,7 +51,7 @@ import org.gdms.data.DataSourceCreationException;
 import org.gdms.data.DataSourceDefinition;
 import org.gdms.data.DataSourceFactory;
 import org.gdms.data.NoSuchTableException;
-import org.gdms.data.SQLDataSourceFactory;
+import org.gdms.data.DataSourceFactory;
 import org.gdms.driver.DriverException;
 import org.gdms.driver.gdms.GdmsWriter;
 import org.gdms.sql.engine.ParseException;
@@ -167,7 +167,7 @@ public class ResultsFrame extends JFrame implements ActionListener {
         }
         else if(e.getActionCommand().equals("createView")) {
             DataManager dm = Services.getService(DataManager.class);
-            SQLDataSourceFactory dsf = dm.getDataSourceFactory();
+            DataSourceFactory dsf = dm.getDataSourceFactory();
             for (int i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].isSelected()) {
                     int j = i + 1;
