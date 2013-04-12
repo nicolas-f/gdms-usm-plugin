@@ -28,7 +28,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -39,7 +39,7 @@ import org.gdms.data.NonEditableDataSourceException;
 import org.gdms.data.indexes.IndexException;
 import org.gdms.driver.DriverException;
 import org.gdms.usm.Step;
-import org.orbisgis.core.background.BackgroundJob;
+import org.orbisgis.view.background.BackgroundJob;
 import org.orbisgis.progress.ProgressMonitor;
 
 /**

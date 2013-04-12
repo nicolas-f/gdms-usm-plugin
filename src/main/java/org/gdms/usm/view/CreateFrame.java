@@ -28,7 +28,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -44,6 +44,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+
+import org.apache.log4j.Logger;
 import org.gdms.data.DataSourceCreationException;
 import org.gdms.data.schema.DefaultMetadata;
 import org.gdms.data.schema.Metadata;
@@ -52,7 +54,6 @@ import org.gdms.data.values.Value;
 import org.gdms.data.values.ValueFactory;
 import org.gdms.driver.DriverException;
 import org.gdms.driver.gdms.GdmsWriter;
-import org.orbisgis.core.Services;
 
 /**
  *
@@ -63,7 +64,8 @@ public class CreateFrame extends JFrame implements ActionListener {
     private SpinnerParameterPanel spp;
     private JFileChooser fc;
     private JTextField path;
-    
+    private final Logger logger = Logger.getLogger(CreateFrame.class);
+
     public CreateFrame() {
 
         super("Urban Sprawl Model - Create");
@@ -207,23 +209,21 @@ public class CreateFrame extends JFrame implements ActionListener {
                             new LaunchFrame(fc.getSelectedFile().getAbsolutePath(), "schelling");
                         }
                     } catch (DriverException ex) {
-                        Services.getErrorManager().error("Driver Exception", ex);
+                        logger.error(ex.getLocalizedMessage(),ex);
                         JOptionPane.showMessageDialog(this, "Some driver error has occurred.", "Driver Error", JOptionPane.WARNING_MESSAGE);
                         return;
                     } catch (DataSourceCreationException ex) {
-                        Services.getErrorManager().error("DataSourceCreation Exception", ex);
+                        logger.error(ex.getLocalizedMessage(),ex);
                         JOptionPane.showMessageDialog(this, "Some DataSource creation error has occurred.", "DataSource Creation Error", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                     dispose();
                 } catch (IOException ex) {
-                    Services.getErrorManager().error("I/O Exception", ex);
+                    logger.error(ex.getLocalizedMessage(),ex);
                     JOptionPane.showMessageDialog(this, "Some I/O error has occurred.", "I/O Error", JOptionPane.WARNING_MESSAGE);
-                    return;
                 } catch (DriverException ex) {
-                    Services.getErrorManager().error("Driver Exception", ex);
+                    logger.error(ex.getLocalizedMessage(),ex);
                     JOptionPane.showMessageDialog(this, "Some driver error has occurred.", "Driver Error", JOptionPane.WARNING_MESSAGE);
-                    return;
                 }
 
             }

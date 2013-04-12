@@ -1,5 +1,4 @@
 /**
- *
  * Gdms-USM is a library dedicated to multi-agent simulation for modeling urban sprawl.
  * It is based on the GDMS library. It uses the OrbisGIS renderer to display results.
  *
@@ -28,33 +27,23 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import org.apache.log4j.Logger;
 import org.gdms.data.DataSource;
-import org.gdms.data.DataSourceCreationException;
-import org.gdms.data.DataSourceDefinition;
 import org.gdms.data.DataSourceFactory;
 import org.gdms.data.NoSuchTableException;
-import org.gdms.data.DataSourceFactory;
-import org.gdms.driver.DriverException;
-import org.gdms.driver.gdms.GdmsWriter;
-import org.gdms.sql.engine.ParseException;
 import org.orbisgis.core.DataManager;
 import org.orbisgis.core.Services;
 
@@ -63,7 +52,7 @@ import org.orbisgis.core.Services;
  * @author Thomas Salliou
  */
 public class ResultsFrame extends JFrame implements ActionListener {
-
+    private final Logger LOGGER = Logger.getLogger(ResultsFrame.class);
     JCheckBox[] checkboxes;
     JButton createViewButton;
     JButton cancelButton;
@@ -80,31 +69,27 @@ public class ResultsFrame extends JFrame implements ActionListener {
         //Get the number of steps in database
         DataManager dm = Services.getService(DataManager.class);
         DataSourceFactory dsf = dm.getDataSourceFactory();
-        int totalSteps = 0;
+        int totalSteps;
         try {
             DataSource ds = dsf.getDataSource("Step");
             ds.open();
             totalSteps = (int) ds.getRowCount();
             ds.close();
         } catch (NoSuchTableException ex) {
-            Services.getOutputManager().print("ERROR : NoSuchTableException, the table Step does not exist in Geocatalog.");
+            LOGGER.error("NoSuchTableException, the table Step does not exist in Geocatalog.", ex);
             return;
-        } catch (DataSourceCreationException ex) {
-            Services.getOutputManager().print("ERROR : DataSourceCreationException.");
-            return;
-        } catch (DriverException ex) {
-            Services.getOutputManager().print("ERROR : DriverException.");
+        } catch (Exception ex) {
+            LOGGER.error(ex.getLocalizedMessage(), ex);
             return;
         }
         
         checkboxes = new JCheckBox[totalSteps];
         
         //Step checkboxes panel
-        int rows = 0;
+        int rows;
         if (totalSteps%5 == 0) {
             rows = totalSteps/5;
-        }
-        else {
+        } else {
             rows = (totalSteps/5) + 1;
         }
         JPanel checkboxesPanel = new JPanel(new GridLayout(rows, 5, 5, 5));
@@ -173,10 +158,8 @@ public class ResultsFrame extends JFrame implements ActionListener {
                     int j = i + 1;
                     try {
                         dsf.executeSQL("CREATE VIEW Stepview"+j+" AS SELECT * FROM Plot a, PlotState b WHERE a.plotID=b.plotID AND b.stepNumber="+j+";");
-                    } catch (ParseException ex) {
-                        Logger.getLogger(ResultsFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (DriverException ex) {
-                        Logger.getLogger(ResultsFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        LOGGER.error(ex.getLocalizedMessage(),ex);
                     }
                 }
             }

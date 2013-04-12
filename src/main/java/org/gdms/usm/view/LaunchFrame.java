@@ -28,12 +28,11 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -52,7 +51,7 @@ import org.gdms.usm.StatisticalDecisionMaker;
 import org.gdms.usm.Step;
 import org.orbisgis.core.DataManager;
 import org.orbisgis.core.Services;
-import org.orbisgis.core.background.BackgroundManager;
+import org.orbisgis.view.background.BackgroundManager;
 
 /**
  *

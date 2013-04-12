@@ -30,47 +30,23 @@
  */
 package org.gdms.usm.plugin;
 
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
+import org.orbisgis.view.main.frames.ext.ToolBarAction;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
 
 /**
- *
- * @author alexis
+ * Activator of USM plugin
+ * @author Nicolas Fortin
  */
-public final class FormatFilter extends FileFilter {
-
-    private final String[] extensions;
-    private String description;
-
-    public FormatFilter(String[] extensions, String description) {
-        this.extensions = extensions;
-        this.description = description + " (";
-        String separator = "";
-        for (String extension : extensions) {
-            this.description += separator + "*." + extension;
-            separator = ",";
-        }
-        this.description += ")";
+public class Activator implements BundleActivator {
+    @Override
+    public void start(BundleContext bundleContext) throws Exception {
+        // Add USM toolbar
+        bundleContext.registerService(ToolBarAction.class, new UsmToolbar(),null);
     }
 
     @Override
-    public String getDescription() {
-        return description;
-    }
+    public void stop(BundleContext bundleContext) throws Exception {
 
-    @Override
-    public boolean accept(File f) {
-        if (f == null) {
-            return true;
-        } else {
-            for (String extension : extensions) {
-                if (f.getAbsolutePath().toLowerCase().endsWith(
-                        "." + extension.toLowerCase())
-                        || f.isDirectory()) {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }

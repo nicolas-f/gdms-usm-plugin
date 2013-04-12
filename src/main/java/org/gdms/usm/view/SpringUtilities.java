@@ -28,7 +28,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import javax.swing.*;
 import javax.swing.SpringLayout;

@@ -28,35 +28,49 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
-import org.orbisgis.core.ui.pluginSystem.AbstractPlugIn;
-import org.orbisgis.core.ui.pluginSystem.PlugInContext;
-import org.orbisgis.core.ui.pluginSystem.workbench.Names;
+import java.io.File;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
- * @author Thomas Salliou
+ * @author alexis
  */
-public class ResultsPlugIn extends AbstractPlugIn {
+public final class FormatFilter extends FileFilter {
 
-    @Override
-    public void initialize(PlugInContext context) throws Exception {
-        context.getFeatureInstaller().addMainMenuItem(this,
-                new String[]{Names.FILE, "GDMS-USM"},
-                "Results", false,
-                null, null, null, context);
+    private final String[] extensions;
+    private String description;
+
+    public FormatFilter(String[] extensions, String description) {
+        this.extensions = extensions;
+        this.description = description + " (";
+        String separator = "";
+        for (String extension : extensions) {
+            this.description += separator + "*." + extension;
+            separator = ",";
+        }
+        this.description += ")";
     }
 
     @Override
-    public boolean execute(PlugInContext context) throws Exception {
-        new ResultsFrame();
-        return true;
+    public String getDescription() {
+        return description;
     }
 
     @Override
-    public boolean isEnabled() {
-        return true;
+    public boolean accept(File f) {
+        if (f == null) {
+            return true;
+        } else {
+            for (String extension : extensions) {
+                if (f.getAbsolutePath().toLowerCase().endsWith(
+                        "." + extension.toLowerCase())
+                        || f.isDirectory()) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-    
 }

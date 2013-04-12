@@ -28,7 +28,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -44,6 +44,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import org.apache.log4j.Logger;
 import org.gdms.usm.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -51,7 +52,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.orbisgis.core.Services;
 
 /**
  *
@@ -75,7 +75,8 @@ public class ProgressFrame extends JFrame implements StepListener, ManagerAdviso
     private XYSeries moversCountChart;
     private Step simulation;
     private boolean thresholdsUpOnDate = false;
-    
+    private final Logger logger = Logger.getLogger(ProgressFrame.class);
+
     public ProgressFrame(Step s, boolean modifyThresholds) {
         super("Progress");
         simulation = s;
@@ -230,7 +231,7 @@ public class ProgressFrame extends JFrame implements StepListener, ManagerAdviso
 
     @Override
     public void householdDisappeared(Household h) {
-        Services.getOutputManager().println("Warning : household number "+h.getId()+" did not find any suitable parcel. It moved out of the city.");
+        logger.warn("household number "+h.getId()+" did not find any suitable parcel. It moved out of the city.");
     }
 
     @Override

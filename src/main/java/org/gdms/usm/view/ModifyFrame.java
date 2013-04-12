@@ -28,7 +28,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -42,18 +42,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import org.apache.log4j.Logger;
 import org.gdms.data.DataSource;
 import org.gdms.data.DataSourceCreationException;
 import org.gdms.data.DataSourceFactory;
 import org.gdms.data.schema.DefaultMetadata;
 import org.gdms.data.schema.Metadata;
-import org.gdms.data.types.Type;
 import org.gdms.data.types.TypeFactory;
 import org.gdms.data.values.Value;
 import org.gdms.data.values.ValueFactory;
 import org.gdms.driver.DriverException;
 import org.gdms.driver.gdms.GdmsWriter;
-import org.orbisgis.core.Services;
 
 /**
  *
@@ -64,6 +63,7 @@ public class ModifyFrame extends JFrame implements ActionListener {
     private String configPath;
     private SpinnerParameterPanel spp;
     private String oldChoice;
+    private final Logger LOGGER = Logger.getLogger(ModifyFrame.class);
     
     public ModifyFrame(String configPath, String choice) throws DataSourceCreationException, DriverException {
         super("Urban Sprawl Model - Modify");
@@ -187,34 +187,32 @@ public class ModifyFrame extends JFrame implements ActionListener {
                         new LaunchFrame(configPath, "schelling");
                     }
                 } catch (DriverException ex) {
-                    Services.getErrorManager().error("Driver Exception", ex);
+                    LOGGER.error(ex.getLocalizedMessage(),ex);
                     JOptionPane.showMessageDialog(this, "Some driver error has occurred.", "Driver Error", JOptionPane.WARNING_MESSAGE);
                     return;
                 } catch (DataSourceCreationException ex) {
-                    Services.getErrorManager().error("DataSourceCreation Exception", ex);
+                    LOGGER.error(ex.getLocalizedMessage(),ex);
                     JOptionPane.showMessageDialog(this, "Some DataSource creation error has occurred.", "DataSource Creation Error", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 dispose();
             } catch (IOException ex) {
-                Services.getErrorManager().error("I/O Exception", ex);
+                LOGGER.error(ex.getLocalizedMessage(),ex);
                 JOptionPane.showMessageDialog(this, "Some I/O error has occurred.", "I/O Error", JOptionPane.WARNING_MESSAGE);
-                return;
             } catch (DriverException ex) {
-                Services.getErrorManager().error("Driver Exception", ex);
+                LOGGER.error(ex.getLocalizedMessage(),ex);
                 JOptionPane.showMessageDialog(this, "Some driver error has occurred.", "Driver Error", JOptionPane.WARNING_MESSAGE);
-                return;
             }
 
         } else {
             try {
                 new LaunchFrame(configPath, oldChoice);
             } catch (DriverException ex) {
-                Services.getErrorManager().error("Driver Exception", ex);
+                LOGGER.error(ex.getLocalizedMessage(),ex);
                 JOptionPane.showMessageDialog(this, "Some driver error has occurred.", "Driver Error", JOptionPane.WARNING_MESSAGE);
                 return;
             } catch (DataSourceCreationException ex) {
-                Services.getErrorManager().error("DataSourceCreation Exception", ex);
+                LOGGER.error(ex.getLocalizedMessage(),ex);
                 JOptionPane.showMessageDialog(this, "Some DataSource creation error has occurred.", "DataSource Creation Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }

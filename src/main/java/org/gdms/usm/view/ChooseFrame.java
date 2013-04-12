@@ -28,7 +28,7 @@
  * or contact directly:
  * info_at_ orbisgis.org
  */
-package org.gdms.usm.plugin;
+package org.gdms.usm.view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -43,9 +43,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import org.apache.log4j.Logger;
 import org.gdms.data.DataSourceCreationException;
 import org.gdms.driver.DriverException;
-import org.orbisgis.core.Services;
 
 /**
  *
@@ -56,6 +56,7 @@ public class ChooseFrame extends JFrame implements ActionListener {
     private JFileChooser fc;
     private JTextField path;
     private Map<String, JRadioButton> selections;
+    private final Logger LOGGER = Logger.getLogger(ChooseFrame.class);
 
     public ChooseFrame() {
 
@@ -133,13 +134,11 @@ public class ChooseFrame extends JFrame implements ActionListener {
                     }
                     dispose();
                 } catch (DriverException ex) {
-                    Services.getErrorManager().error("Driver Exception", ex);
+                    LOGGER.error("Driver Exception", ex);
                     JOptionPane.showMessageDialog(this, "Some driver error has occurred.", "Driver Error", JOptionPane.WARNING_MESSAGE);
-                    return;
                 } catch (DataSourceCreationException ex) {
-                    Services.getErrorManager().error("DataSourceCreation Exception", ex);
+                    LOGGER.error("DataSourceCreation Exception", ex);
                     JOptionPane.showMessageDialog(this, "Some DataSource creation error has occurred.", "DataSource Creation Error", JOptionPane.WARNING_MESSAGE);
-                    return;
                 }
             }
         } else {
